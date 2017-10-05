@@ -37,8 +37,10 @@ git remote add origin "$GIT_REPO_URL"
 # install the ssh key
 mkdir ~/.ssh
 ssh-keyscan -H github.com >> ~/.ssh/known_hosts 2> /dev/null
-echo "$ENV_DIR/GIT_SSH_KEY" > ~/.ssh/id_rsa
-# Testing
+echo "-----> Attempting to add SSH Key"
+echo "$GIT_SSH_KEY"
+echo "$GIT_SSH_KEY" > ~/.ssh/id_rsa
+echo "-----> Private Key Written"
 cat ~/.ssh/id_rsa
 
 # ignore/hide ssh warnings
