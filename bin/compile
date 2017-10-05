@@ -46,12 +46,14 @@ echo "Host *" >> ~/.ssh/config
 echo "   StrictHostKeyChecking no" >> ~/.ssh/config
 echo "   UserKnownHostsFile /dev/null" >> ~/.ssh/config
 echo "   LogLevel ERROR" >> ~/.ssh/config
-echo "-----> Installed SSH key from GIT_SSH_KEY"
 
+echo "-----> Adding Private Key to SSH"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa
+ssh-add -l
 echo "-----> Attempting Connection"
 ssh -T git@github.com
-eval "$(ssh-agent -s)"
-ssh-add -l
+echo "-----> Installed SSH key from GIT_SSH_KEY"
 
 # checkout the revision that's being deployed
 echo "-----> Attempting Fetch"
