@@ -37,7 +37,9 @@ git remote add origin "$GIT_REPO_URL"
 # install the ssh key
 mkdir ~/.ssh
 ssh-keyscan -H github.com >> ~/.ssh/known_hosts 2> /dev/null
-cat "$ENV_DIR/GIT_SSH_KEY" > ~/.ssh/id_rsa
+echo "$ENV_DIR/GIT_SSH_KEY" > ~/.ssh/id_rsa
+# Testing
+cat ~/.ssh/id_rsa
 
 # ignore/hide ssh warnings
 echo "Host *" >> ~/.ssh/config
@@ -47,7 +49,9 @@ echo "   LogLevel ERROR" >> ~/.ssh/config
 echo "-----> Installed SSH key from GIT_SSH_KEY"
 
 # checkout the revision that's being deployed
+echo "-----> Attempting Fetch"
 git fetch -q --depth 1 origin -a > /dev/null
+echo "-----> Attempting Checkout"
 git checkout -q ${SOURCE_VERSION:-master} > /dev/null
 echo "-----> Fetched shallow history from $GIT_REPO_URL"
 
