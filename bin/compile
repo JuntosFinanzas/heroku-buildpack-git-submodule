@@ -38,10 +38,8 @@ git remote add origin "$GIT_REPO_URL"
 mkdir ~/.ssh
 ssh-keyscan -H github.com >> ~/.ssh/known_hosts 2> /dev/null
 echo "-----> Attempting to add SSH Key"
-echo "$GIT_SSH_KEY"
 echo "$GIT_SSH_KEY" > ~/.ssh/id_rsa
 echo "-----> Private Key Written"
-cat ~/.ssh/id_rsa
 
 # ignore/hide ssh warnings
 echo "Host *" >> ~/.ssh/config
@@ -49,6 +47,11 @@ echo "   StrictHostKeyChecking no" >> ~/.ssh/config
 echo "   UserKnownHostsFile /dev/null" >> ~/.ssh/config
 echo "   LogLevel ERROR" >> ~/.ssh/config
 echo "-----> Installed SSH key from GIT_SSH_KEY"
+
+echo "-----> Attempting Connection"
+ssh -T git@github.com
+eval "$(ssh-agent -s)"
+ssh-add -l
 
 # checkout the revision that's being deployed
 echo "-----> Attempting Fetch"
